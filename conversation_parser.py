@@ -17,7 +17,7 @@ for line in dataset:
 
         date = line.split(",")[0]
         line2 = line[len(date):]
-        time = line2.split("-")[0][2:]
+        time = line2.split("]")[0][2:]
         line3 = line2[len(time):]
         name = line3.split(":")[0][4:]
         line4 = line3[len(name):]
@@ -25,8 +25,9 @@ for line in dataset:
         data_nqya.append([date, time, name, message])
 
     else:
-        new = data_nqya[-1][-1] + " " + line
-        data_nqya[-1][-1] = new
+        if len(data_nqya)>0:
+            new = data_nqya[-1][-1] + " " + line
+            data_nqya[-1][-1] = new
 
 #save to excel xlsx
 df = pd.DataFrame(data_nqya, columns = ['Date', 'Time', 'Name', 'Message'])
